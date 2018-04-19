@@ -21,7 +21,7 @@ def do_basic_preprocess(filePath, interim_filepath):
     print(trainData[['comment_text']].head())
     print('\n\n')
 
-    ref_basic = bp.BasicPreprocessor(trainData[:1], "comment_text")
+    ref_basic = bp.BasicPreprocessor(trainData[:50000], "comment_text")
     tdf = pd.DataFrame({'A' : []})
     ref_basic.perform_operation(bp.Operations.LOWER, tdf, True, True)
     ref_basic.perform_operation(bp.Operations.PUNCTUATION, tdf, True, True)
@@ -49,7 +49,7 @@ if __name__ == '__main__':
     #main()
     root_dir = os.path.abspath(os.path.join(os.path.dirname(__file__), os.pardir, os.pardir))
     train_filepath = root_dir+"/data/raw/train.csv"
-    basic_filepath = root_dir+"/data/interim/basic_preprocessed.csv"
-    advanced_filepath = root_dir+"/data/interim/advanced_preprocessed.csv"
+#    basic_filepath = root_dir+"/data/interim/basic_preprocessed.csv"
+    basic_filepath = root_dir+"/data/processed/basic_preprocessed.csv"
     print("Train file:"+train_filepath)
     do_basic_preprocess(train_filepath, basic_filepath)

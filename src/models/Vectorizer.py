@@ -1,5 +1,6 @@
 from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
+import pandas as pd
 
 class Vectorizer:
     _data_frame = pd.DataFrame({'A' : []})
@@ -15,12 +16,13 @@ class Vectorizer:
         #self._term_doc = np.empty(size)
         self._target_names = np.array(target_class)
         size = len(self._target_names)
-        self._class_vector = np.empty([df_shape[0],size])
+        self._class_vector = np.zeros([df_shape[0],size])
+        print(self._class_vector)
         self.build_target_dict()
         self._column = col
         print(self._column)
 
-    def choose_dataframe(self, df, is_interim):
+    def choose_dataframe(self, df):
         temp = pd.DataFrame({'A' : []})
         if (not (df.empty)):
             temp = df
@@ -29,31 +31,32 @@ class Vectorizer:
         return temp
     
     def build_target_dict(self):
-        i = 0
-        for val in self._target_names:
-            self._target[val] = i
+        for i in range(len(self._target_names)):
+            name = self._target_names[i]
+            self._target[name] = i
             i += 1
 
     def vectorize_tfidf(self, df):
-        temp = self.choose_dataframe(df, is_interim)
+        temp = self.choose_dataframe(df)
         vectorizer = TfidfVectorizer(encoding='utf-8', decode_error='strict', 
-                        analyzer = "word", max_features = 1000,stop_words=
+                        analyzer = "word", max_features = 300,stop_words=
                         "english", ngram_range=(1,3), dtype='float64', 
                         smooth_idf=True, lowercase=False, strip_accents=
                         'unicode', norm='l2')
         self._term_doc = vectorizer.fit_transform(temp.loc[:, self._column])
         return self._term_doc
     
-    def build_class_vector():
+    def build_class_vector(self):
         for index, row in self._data_frame.iterrows():
-            for label, val in  self._target:
-            self._class_vector[index,val] = row[label]
+            #print("***** ",index," row ******")
+            for key, value in  self._target.items():
+                self._class_vector[index,value] = row[key]
         return self._class_vector
     
-    def get_term_document():
+    def get_term_document(self):
         return self._term_doc
     
-    def  get_target_dict():
+    def  get_target_dict(self):
         return self._target
         
     
