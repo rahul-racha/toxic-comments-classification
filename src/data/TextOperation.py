@@ -1,4 +1,6 @@
 from nltk.corpus import stopwords
+from textblob import TextBlob
+from textblob import Word
 import pandas as pd
 
 class TextOperation:
@@ -9,22 +11,28 @@ class TextOperation:
         self._text = ""
         
     def lower_case(self, txt):
-        print(txt)
-        return " ".join(txt.lower() for txt in txt.split())
+        return " ".join(word.lower() for word in txt.split())
     
     def remove_punctuation(self, txt):
-        print(txt)
         return txt.replace('[^\w\s]','')
     
     def remove_stopwords(self, txt):
-        print(txt)
         stop = stopwords.words('english')
-        return " ".join(txt for txt in txt.split() if txt not in stop)
+        return " ".join(word for word in txt.split() if word not in stop)
     
     def remove_commonwords(self, txt):
-        print(txt)
-        print(pd.Series(" ".join(txt).split()))
-        freq = pd.Series(" ".join(txt).split()).value_counts()[:10]
-        print(freq)
+        freq = pd.Series(txt.split()).value_counts()[:2]
         freq = list(freq.index)
-        return " ".join(txt for txt in txt.split(' ') if txt not in freq)
+        return " ".join(word for word in txt.split() if word not in freq)
+    
+    def remove_rarewords(self, txt):
+        freq = pd.Series(txt.split()).value_counts()[-2:]
+        freq = list(freq.index)
+        return " ".join(word for word in txt.split() if word not in freq)
+    
+    def correct_spelling(self, txt):
+        return str(TextBlob(txt).correct())
+    
+    def lemmatize(self, txt):
+        return " ".join([Word(word).lemmatize() for word in txt.split()])
+         
