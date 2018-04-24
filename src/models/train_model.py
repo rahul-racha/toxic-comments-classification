@@ -36,6 +36,9 @@ term_doc = ref_vect.vectorize_tfidf(df)
 X = term_doc.todense()
 print(X)
 
+featured_words = ref_vect.get_label_names()
+print(featured_words)
+
 
 #Split data
 X_train, X_test, y_train, y_test = train_test_split(X, y, test_size=0.25, random_state=42)
@@ -77,7 +80,7 @@ col_labels = np.array(list(target_labels.keys()))
 print(col_labels)
 colors = plt.cm.BuPu(np.linspace(0, 0.5, len(row_labels)))
 
-plt.table(cellText=data, rowLabels=row_labels, rowColours=colors, 
+table = plt.table(cellText=data, rowLabels=row_labels, rowColours=colors, 
           colLabels=col_labels,loc='top', clip_box='None')
 cur_axes = plt.gca()
 #cur_axes.axes.get_xaxis().set_visible(False)

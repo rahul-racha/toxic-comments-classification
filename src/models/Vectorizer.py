@@ -1,6 +1,6 @@
+import pandas as pd
 from sklearn.feature_extraction.text import TfidfVectorizer
 import numpy as np
-import pandas as pd
 
 class Vectorizer:
     _data_frame = pd.DataFrame({'A' : []})
@@ -8,6 +8,7 @@ class Vectorizer:
     _target_names = np.empty([1,8])
     _target = {}
     _class_vector = np.empty([1,1])
+    _feature_names = np.empty([1,1])
     _column = ""
 
     def __init__(self, df, col, target_class):
@@ -17,10 +18,8 @@ class Vectorizer:
         self._target_names = np.array(target_class)
         size = len(self._target_names)
         self._class_vector = np.zeros([df_shape[0],size])
-        print(self._class_vector)
         self.build_target_dict()
         self._column = col
-        print(self._column)
 
     def choose_dataframe(self, df):
         temp = pd.DataFrame({'A' : []})
@@ -44,11 +43,11 @@ class Vectorizer:
                         smooth_idf=True, lowercase=False, strip_accents=
                         'unicode', norm='l2')
         self._term_doc = vectorizer.fit_transform(temp.loc[:, self._column])
+        self._feature_names = vectorizer.get_feature_names()
         return self._term_doc
     
     def build_class_vector(self):
         for index, row in self._data_frame.iterrows():
-            #print("***** ",index," row ******")
             for key, value in  self._target.items():
                 self._class_vector[index,value] = row[key]
         return self._class_vector
@@ -58,8 +57,6 @@ class Vectorizer:
     
     def  get_target_dict(self):
         return self._target
-        
     
-    
-        
-        
+    def get_label_names(self):
+        return self._feature_names
