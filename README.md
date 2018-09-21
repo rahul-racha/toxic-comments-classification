@@ -1,10 +1,18 @@
-toxic-comments-classification
-==============================
+Toxic Comments Classification
+=============================
 
-Build a multi-headed model and detect different types of toxicity like threats, insults, obscenity and identity-based hate.
+Online platforms are subjected to indecent comments and conversations. This project contains the implementation of a multi-headed model to detect different types of toxicity like threats, insults, obscenity and identity-based hate from the comments.
+
+Dataset
+---------
+https://www.kaggle.com/c/jigsaw-toxic-comment-classification-challenge/data
+
+Notebook
+---------
+Approach and solution to the problem can be found by clicking [here](https://github.com/rahul-racha/toxic-comments-classification/blob/master/notebooks/Toxic-Comment-Classification-Notebook.ipynb)
 
 Project Organization
-------------
+--------------------
 
     ├── LICENSE
     ├── Makefile           <- Makefile with commands like `make data` or `make train`
@@ -54,3 +62,7 @@ Project Organization
 --------
 
 <p><small>Project based on the <a target="_blank" href="https://drivendata.github.io/cookiecutter-data-science/">cookiecutter data science project template</a>. #cookiecutterdatascience</small></p>
+
+Requirements
+-------------
+* Python 3.6
