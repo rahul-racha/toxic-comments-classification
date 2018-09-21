@@ -1,7 +1,7 @@
 Toxic Comments Classification
 =============================
 
-Online platforms are subjected to indecent comments and conversations. This project contains the implementation of a multi-headed model to detect different types of toxicity like threats, insults, obscenity and identity-based hate from the comments.
+Online platforms are subjected to indecent comments and conversations. This project contains an implementation of a multi-headed model to detect different types of toxicity like threats, insults, obscenity and identity-based hate from the comments.
 
 Dataset
 ---------
